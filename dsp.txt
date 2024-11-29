@@ -1,0 +1,909 @@
+2dst
+=========
+
+Aim: Generation of Discrete Time Sequences of:
+(a)	Unit impulse signal
+(b)	Unit step signal
+(c)	Sinusoidal signal
+(d)	Cosine signal
+(e)	Sawtooth wave
+
+
+Requirements: Mention the software / hardware used for performing the practical.
+(a)	Unit impulse signal
+Description: The unit impulse signal, is a fundamental signal in discrete-time systems. It is characterized by being zero everywhere except at n=0, where it takes a value of 1
+Program:
+% Unit Impulse Signal
+n = -10:0.1:10; % Time range impulse_signal = zeros(size(n));
+impulse_signal(n == 0) = 1; % Set value to 1 at n = 0
+
+
+figure;
+stem(n, impulse_signal, 'filled', 'MarkerSize', 5, 'LineWidth', 1); title('Unit Impulse Signal');
+xlabel('n'); ylabel('Amplitude'); axis tight;
+grid on; 
+
+
+Result:
+
+Observation: The graph of the unit impulse signal shows a single point at n=0 with an amplitude of 1, while all other values remain at 0. This distinctive peak represents the impulse. The width of the impulse is effectively zero, illustrating its role as an idealized instantaneous signal.
+Conclusion: The unit impulse is crucial in systems theory as it allows engineers to analyze the response of linear time-invariant systems through convolution. It serves as an identity element in the context of linear systems, enabling the analysis of system behavior when subjected to arbitrary inputs.
+
+
+(b)	Unit step signal
+Description: The unit step signal represents a sudden change in a system. It transitions from zero to one at a particular point in time, effectively modeling the start of a process. This signal is often used in control systems and digital signal processing to analyze how systems respond to changes. The unit step can be seen as the cumulative sum of a series of impulses, making it useful for studying system dynamics and behavior over time. 
+Program:
+% Unit Step Signal
+n = -10:0.1:10; % Time range step_signal = zeros(size(n));
+step_signal(n >= 0) = 1; % Set values to 1 for n >= 0
+
+
+figure;
+stem(n, step_signal, 'filled', 'MarkerSize', 5, 'LineWidth', 1); title('Unit Step Signal');
+xlabel('n'); ylabel('Amplitude'); axis tight;
+grid on;
+Result:
+
+Observation: The graph displays a sharp transition from 0 to 1 at n=0n = 0n=0. This characteristic represents a signal that starts at zero and then remains constant at one indefinitely. The step function is visually similar to a staircase, but only the first step is present. 
+Conclusion: The unit step function is widely used in control systems, digital signal processing, and systems analysis. It effectively models the initiation of processes and can represent the input signal for systems transitioning from an inactive state to an active state.
+
+
+
+(c)	Sinusoidal signal
+Description: A sinusoidal signal is a smooth, continuous wave that oscillates between two values over time. It is characterized by its frequency, which determines how quickly it oscillates, and its amplitude, which defines the height of the wave. Sinusoidal signals are fundamental in various applications, including audio and communications, as they represent periodic phenomena.
+They form the basis of Fourier analysis, which states that any periodic signal can be decomposed into a sum of sinusoidal components.
+
+Program:
+n = -10:0.1:10; % Time range
+sinusoidal_signal = sin(2 * pi * 0.1 * n); % Frequency 0.1 Hz
+
+
+figure;
+stem(n, sinusoidal_signal, 'LineWidth', 1.5); title('Sinusoidal Signal');
+xlabel('n'); ylabel('Amplitude'); axis tight;
+grid on;
+Result: 
+ 
+Observation: The graph illustrates a continuous wave oscillating between -1 and 1, with a consistent frequency that determines the spacing of the peaks. Each complete cycle of the sine wave corresponds to a period, which is inversely proportional to the frequency.
+Conclusion: Sinusoidal signals are fundamental in various fields, including communications, audio processing, and control systems. Their predictable behavior makes them ideal for analyzing and designing systems that require stability and periodicity.
+
+
+(d)	Cosine signal
+Description: The cosine signal is similar to the sinusoidal signal but starts at its maximum value when time is zero. It also oscillates between two values and is characterized by its frequency and amplitude. The cosine wave is particularly important in applications where phase relationships matter, such as in alternating current (AC) circuits and signal modulation. Like the sine wave, it can also be used in Fourier analysis to represent complex periodic signals.
+Program:
+n = -10:0.1:10; % Time range
+cosine_signal = cos(2 * pi * 0.1 * n); % Frequency 0.1 Hz
+
+
+figure;
+stem(n, cosine_signal, 'LineWidth', 1.5); 
+title('Cosine Signal'); xlabel('n'); ylabel('Amplitude'); axis tight;
+grid on;
+
+
+Result:
+
+Observation: The cosine wave oscillates between -1 and 1, similar to the sine wave, but starts at its maximum value when n=0. This phase shift of 90 degrees makes it useful for various applications, especially in Fourier analysis, where both sine and cosine components are needed.
+Conclusion: The cosine wave is significant in engineering and physics as it represents oscillatory phenomena. It is often used in the analysis of waveforms and signals, particularly in systems where phase relationships are crucial.
+
+
+(e)	Sawtooth signal
+Description: The sawtooth wave is characterized by a linear rise followed by a sharp drop, creating a triangular shape. This waveform repeats periodically and 
+contains a rich harmonic content, making it valuable in various applications, such as audio synthesis and signal modulation. The sawtooth wave can approximate a variety of signals and is often used in signal generation due to its unique properties, which contribute to a wide range of frequencies in its spectrum.
+Program:
+n = -10:0.1:10; % Time range
+sawtooth_signal = sawtooth(2 * pi * 0.1 * n); % Frequency 0.1 Hz
+
+
+figure;
+stem(n, sawtooth_signal, 'LineWidth', 1.5); title('Sawtooth Wave');
+xlabel('n'); ylabel('Amplitude'); axis tight;
+grid on;
+Result:
+
+Observation: The graph reveals a triangular shape with a linear increase and a sudden drop back to the minimum value. This unique shape contributes to a rich harmonic spectrum, which is essential for applications in signal generation. 
+Conclusion: The sawtooth wave is widely used in audio synthesis, modulation techniques, and various electronic applications due to its rich frequency content. Its properties make it effective for simulating a variety of waveforms and are instrumental in creating
+
+
+
+
+============================
+
+3irt
+==========
+Aim: 
+To find the impulse response of a system with the transfer function. 
+Requirements: 
+MATLAB 
+
+Theory: 
+A transfer function represents the relationship between the input and output of a system in the Laplace domain. It is typically used in control systems and signal processing to characterize the dynamics of linear time-invariant (LTI) systems. The transfer function is expressed as a ratio of the output Laplace transform to the input Laplace transform under zero initial conditions.
+Mathematical Definition:
+For an LTI system, the transfer function H(s) is defined as:
+H(s)=Y(s)/X(s)
+where:
+●	Y(s) is the Laplace transform of the output,
+●	X(s) is the Laplace transform of the input, and
+●	s is the complex frequency variable in the Laplace domain.
+
+
+
+
+Program: 
+clc;
+clear all;
+close all;
+ % Define the transfer function
+% H(s) = (100s^4 + 10s + 1) / (500s^5 + 100s^3 + 10s + 1)
+numerator = [100 0 0 10 1]; % Coefficients of the numerator polynomial
+denominator = [500 0 100 0 10 1]; % Coefficients of the denominator polynomial
+
+% Create the transfer function object
+sys = tf(numerator, denominator);
+
+% Define the Laplace variable s
+syms s;
+
+% Define the Laplace-domain transfer function H(s)
+H_s = poly2sym(numerator, s) / poly2sym(denominator, s);
+
+% Compute the inverse Laplace transform to obtain the impulse response h(t)
+impulse_response = ilaplace(H_s);
+
+% Define a time vector associated with the impulse response
+t = 0:0.1:10; % Adjust the time range as needed
+
+% Evaluate the impulse response at the specified time points
+impulse_response_numeric = double(subs(impulse_response, t));
+
+% Plot the impulse response
+stem(t, impulse_response_numeric);
+title('Impulse Response');
+xlabel('Time (seconds)');
+ylabel('Amplitude');
+
+
+Result: 
+ 
+Observation: 
+The MATLAB code effectively defines and analyzes the transfer function of an LTI system in the Laplace domain. It begins by specifying the coefficients for the numerator and denominator of the transfer function as vectors. Using the symbolic toolbox, it declares the Laplace variable sss and constructs the transfer function symbolically. The inverse Laplace transform is computed to obtain the impulse response, which is then evaluated over a defined time vector. Finally, the impulse response is visualized using a stem plot, providing a clear representation of the system’s response over time. This structured approach demonstrates the transition from the Laplace domain to the time domain in system analysis.
+
+
+
+
+Conclusion: 
+The MATLAB experiment effectively analyzes an LTI system's transfer function and impulse response, revealing key system dynamics.
+
+Points Noticed While Getting the Results:
+1.	Clear Representation: The transfer function accurately models the system.
+2.	Impulse Response: Provides insights into stability and transient behavior.
+3.	Time Vector: A well-chosen time vector is crucial for accurate evaluation.
+4.	Effective Visualization: The stem plot clearly illustrates the impulse response.
+
+
+
+
+
+===============================
+4dftidft
+==================
+Aim: 
+ 
+To perform the Discrete Fourier Transform (DFT) and Inverse Discrete Fourier Transform (IDFT) 
+Requirements: 
+Mention the software / hardware used for performing the practical. 
+ 
+Theory: 
+DFT: 
+The Discrete Fourier Transform (DFT) is a mathematical technique used to analyze discrete signals in the frequency domain. It transforms a finite sequence of equally spaced samples of a function into a sequence of coefficients of complex exponentials, representing the frequency components of the signal.
+Definition and Formula:
+For a sequence of N discrete time-domain samples x[n], where n= 0, 1, 2, …….., N-1. the DFT is defined as:
+
+X[k]= N-1 sigma n=0 x[n] e ^-j2pikn/N , k=0,1,2,3....N-1
+ 
+
+IDFT: 
+The Inverse Discrete Fourier Transform (IDFT) is a mathematical operation that converts frequency-domain data back into the time domain. It reconstructs the original discrete signal from its DFT coefficients.
+Definition and Formula:
+For a sequence of N frequency-domain coefficients X[k], the IDFT is defined as:
+ 
+x[n]= 1/N   N-1 sigma k=0  X[k] e ^ j2pikn/N   , n=0,1,2,....N-1
+
+Program: 
+   %DFT and IDFT using matlab functions
+clc;
+close all;
+clear
+x=input('Please enter the sequence x(n)=');
+N=input('Please enter the length of the DFT N=');
+X=fft(x,N);
+n=0:length(x)-1;
+subplot(311);
+stem(n,x);
+title('Input Sequence');
+subplot(323);
+n=0:length(X)-1;
+stem(n,X);
+disp('DFT of input sequence is ');
+disp(X);
+title('DFT');
+subplot(324);
+stem(n,abs(X));
+title('Magnitude spectrum');
+subplot(325);
+stem(n,angle(X));
+title('Phase spectrum');
+xr=ifft(x,N);
+subplot(326);
+stem(n,abs(xr));
+title('IDFT');
+disp('IDFT of input sequence is ');
+disp(xr);
+
+Result: 
+     
+
+Observation: 
+1.	Original Signal x[n] 
+
+• This plot shows the time-domain representation of the input signal. It appears to be a discrete-time signal with four non-zero samples.
+ 
+2.	Magnitude of DFT X[k] 
+
+• This plot represents the frequency-domain representation of the signal, obtained through the DFT. The magnitude of each frequency component is displayed. 
+
+• The peaks in the spectrum indicate the dominant frequencies present in the original signal. In this case, there are four peaks, suggesting four significant frequency components. 
+
+3.	Reconstructed Signal x[n] (IDFT) 
+
+• This plot shows the time-domain signal reconstructed from the DFT coefficients using the IDFT. It should be identical to the original signal if there were no quantization or numerical errors.  
+ 
+Conclusion: 
+Overall, the experiment successfully demonstrated the effectiveness of DFT and IDFT for analyzing and reconstructing discrete-time signals. The ability to decompose a signal into its frequency components and accurately reconstruct it from these components is a fundamental tool in signal processing.
+
+
+
+
+===============
+5fft
+=========
+
+Aim:
+To Plot linear convolution of two sequencies using FFT
+Requirements:
+MATLAB
+Theory:
+Convolution is a mathematical operation that combines two sequences to produce a third 
+sequence, which represents how one sequence modifies or "filters" the other. In signal processing, 
+convolution helps analyze systems by understanding how an input sequence is altered by a 
+system’s impulse response.
+Linear Convolution differs from circular convolution, as it provides the full-length result of the 
+convolution operation, which is essential in many real-world applications where boundary effects 
+cannot be ignored.
+Fast Fourier Transform (FFT) is an efficient algorithm to compute the Discrete Fourier Transform 
+(DFT) of a sequence. Using FFT to perform convolution is beneficial because convolution in the 
+time domain is equivalent to multiplication in the frequency domain. Thus, by transforming two 
+sequences into the frequency domain, multiplying them, and transforming back, we can achieve 
+convolution more efficiently.
+The steps to perform linear convolution using FFT in MATLAB are:
+1. Calculate the FFT of both input sequences.
+2. Multiply the transformed sequences element-wise.
+3. Perform the Inverse FFT (IFFT) on the result to get the convolved sequence.
+4. The result represents the linear convolution of the two sequences.
+Program:
+% Input sequences 
+x = [1, 2, 3, 4];
+h = [1, 1, 1, 1];
+% Zero-pad and perform FFT-based convolution 
+N = length(x) + length(h) - 1;
+y = ifft(fft([x, zeros(1, N - length(x))]) .* fft([h, zeros(1, N - length(h))]));
+% Display and plot result
+disp('Linear Convolution Result using FFT:'); disp(y);
+stem(0:N-1, y, 'filled'); title('Linear Convolution using FFT'); xlabel('n'); ylabel('y[n]');
+Result:
+Observation:
+The FFT method for linear convolution was applied to two example sequences in MATLAB. The 
+MATLAB script involved using fft to transform each sequence, then performing element-wise 
+multiplication of the transformed sequences, and finally using ifft to get the linear convolution 
+result.
+Conclusion:
+Using FFT to compute the linear convolution of two sequences is efficient and accurate. This 
+method simplifies the convolution process by utilizing frequency domain properties. By 
+leveraging FFT, we can reduce computational complexity, especially for large sequences. The 
+experiment confirms that the FFT-based approach produces the same results as MATLAB's builtin conv function, demonstrating its validity and efficiency for linear convolution in signal 
+processing tasks
+
+
+
+
+
+===============
+6ecg
+==================
+Aim:
+To design ECG signal using MATLAB
+Requirements:
+MATLAB
+Theory:
+The Electrocardiogram (ECG) signal represents the electrical activity of the heart and is crucial in
+diagnosing cardiac conditions. An ECG waveform typically includes the P wave, QRS complex,
+and T wave, corresponding to different phases of the cardiac cycle.
+In MATLAB, ECG signals can be synthesized using mathematical functions and specific signal
+parameters, such as amplitude, frequency, and noise. Designing an ECG signal involves
+simulating these characteristic waveform components to resemble a real heart's electrical activity.
+The basic steps to generate an ECG signal in MATLAB are:
+1. Define the parameters for each segment of the ECG waveform (P wave, QRS complex,
+and T wave).
+2. Combine these components to form a single ECG cycle.
+3. Repeat the cycle to simulate continuous heartbeats.
+Various methods exist to model ECG signals, including parametric equations and synthetic ECG
+models that use Gaussian functions to approximate the distinct waveform peaks. By adjusting
+parameters like duration and amplitude for each wave component, we can shape an ECG signal
+that closely mirrors physiological data. MATLAB also offers in-built functions and toolboxes,
+such as the ecg function in the Signal Processing Toolbox, which can be used to generate
+synthetic ECG signals with customizable properties.
+Additionally, MATLAB has in-built functions and toolboxes, such as the ecg function in the
+Signal Processing Toolbox, which can be used to generate synthetic ECG signals with
+customizable properties.
+Program:
+Mat Code –
+fs = 500;
+t 0:1/fs:2;
+P_wave = 0.1 * sin(2 * pi * 5 * t);
+QRS_wave = 1.5 * exp( - ((t - 0.5) / 0.03).^2);
+T_wave = 0.3 * sin(2 * pi * 1.5 * (t - 0.6));
+ECG_signal = P_wave + QRS_wave + T_wave;
+plot(t, ECG_signal);
+title('Synthetic ECG Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+grid on;
+CSV Code –
+fs = 500;
+t = 0:1/fs:2;
+P_wave = 0.1 * sin(2 * pi * 5 * t);
+QRS_wave = 1.5 * exp( - ((t - 0.5) / 0.03).^2);
+T_wave = 0.3 * sin(2 * pi * 1.5 * (t - 0.6));
+ECG_signal = P_wave + QRS_wave + T_wave;
+data = [t' ECG_signal'];
+csvwrite('synthetic_ecg.csv', data);
+disp('ECG signal data saved to synthetic_ecg.csv');
+Result:
+Observation:
+1. MATLAB Code Execution:
+The ECG signal was generated by defining mathematical functions to represent each
+component of the ECG cycle, such as the P wave, QRS complex, and T wave. The
+waveform was constructed by combining these functions to form one cardiac cycle and
+then repeated to simulate a continuous signal of multiple heartbeats.
+2. Waveform Characteristics:
+Adjusting parameters like amplitude and timing within each wave allowed for
+customizing the ECG signal’s appearance. This helped observe how changes in these
+parameters affect the overall ECG morphology, mimicking variations that might occur due
+to different heart conditions or rhythms.
+3. Continuous Signal Simulation:
+By repeating the cardiac cycle, a continuous ECG signal was created, allowing for the
+visualization of sustained heart activity. This continuous signal provides a basis for further
+processing, analysis, or feature extraction tasks in ECG signal studies.
+Conclusion:
+The ECG signal design using MATLAB successfully produced a synthetic ECG waveform with
+realistic characteristics. The experiment demonstrated that MATLAB is an effective tool for
+generating biomedical signals by combining mathematical functions. This approach can be used
+for educational purposes, algorithm testing, and signal processing research, providing a
+foundation for further study in ECG analysis and feature extraction
+
+
+
+
+=================
+7ps
+===================
+Aim:
+Determination of Power Spectrum of given signal
+Requirements:
+MATLAB
+Theory:
+The Power Spectrum of a signal provides information about the distribution of power across
+different frequency components within the signal. It is particularly useful in signal processing and
+spectral analysis for identifying dominant frequencies, noise characteristics, and signal behavior
+over a range of frequencies.
+The power spectrum is calculated using the Fourier Transform of the signal, as the Fourier
+Transform decomposes the time-domain signal into its constituent frequencies. By analyzing the
+amplitude or magnitude of each frequency component, we can determine the signal’s power at
+different frequencies.
+For a discrete signal x[n], the Discrete Fourier Transform (DFT) is calculated as:
+X[k]= N-1 sigma n=0  x[n]e ^ -j2pikn/N
+Where X[k] represents the frequency components of the signal, N is the number of samples, and k
+is the index of the frequency bin.
+The Power Spectral Density (PSD) can then be obtained by calculating the squared magnitude of
+the Fourier Transform:
+PSD[k]= |X[k]|^2  / N
+This provides the power contained within each frequency component of the signal. In MATLAB,
+the Fast Fourier Transform (FFT) is often used to compute the Fourier Transform efficiently.
+After computing the FFT, we can use abs to get the magnitude and square it to find the power at
+each frequency.
+In summary, the power spectrum reveals where the signal’s power is concentrated in the
+frequency domain, which is key for analyzing the signal’s spectral properties.
+Program:
+clc;
+clear all;
+close all;
+% Parameters
+N = 1024; % Number of points
+fs = 8000; % Sampling frequency (Hz)
+f = input('Enter the frequency [1 to 5000]: '); % Input frequency
+% Time vector
+n = 0:N-1;
+x= sin(2*pi*(f/fs)*n); % Generate sine wave
+%Power Spectral Density (PSD) using periodogram
+[pxxx, freq] = periodogram (x, [], N, fs); % Compute power spectrum
+% Plot the power spectrum
+figure;
+plot(freq, 10*log10(pxxx)); % Convert power to decibels
+grid on;
+xlabel('Frequency (Hz)');
+ylabel('Magnitude (dB)');
+title('Power Spectrum of x(n)');
+Result:
+Observation:
+1. MATLAB Code Execution:
+The FFT was applied to a sample signal in MATLAB to calculate its power spectrum.
+After taking the magnitude squared of the FFT result, we obtained the power spectrum and
+visualized it to analyze the signal's frequency characteristics.
+2. Frequency Components:
+The power spectrum plot clearly showed peaks at specific frequencies, indicating the
+dominant frequencies in the signal. The results confirmed that the power was concentrated
+in certain frequency bands, while other regions exhibited minimal power.
+3. Resolution and Sampling:
+The sampling rate and signal length influenced the frequency resolution of the power
+spectrum. By adjusting these parameters, we could observe changes in the precision of
+frequency identification.
+Conclusion:
+The determination of the power spectrum using MATLAB successfully highlighted the frequency
+components present in the given signal. The experiment demonstrated that the FFT method
+effectively analyzes spectral power, providing insights into the signal's dominant frequencies and
+overall energy distribution. This approach is valuable in applications such as noise reduction,
+signal filtering, and feature extraction in both digital signal processing and communication
+systems. The power spectrum analysis is thus a powerful tool for understanding the frequency
+characteristics of complex signals
+
+
+
+
+
+=============
+8dtmf
+===============
+Aim:
+To generate DTMF signals using MATLAB software
+Requirements:
+MATLAB
+Theory:
+Dual-Tone Multi-Frequency (DTMF) is a signaling technique used for telecommunication
+systems, especially in touch-tone telephones. DTMF works by generating two simultaneous
+sinusoidal signals, each at a different frequency, which represent each key on the telephone
+keypad. When a button is pressed, it produces a unique combination of two tones: one from a
+low-frequency group and the other from a high-frequency group.
+The frequency mapping of the DTMF keypad is as follows:
+To generate a DTMF signal in MATLAB, we use the following steps:
+1. Define the low and high frequencies for the key pressed.
+2. Create two sinusoidal signals corresponding to these frequencies.
+3. Combine the two signals to generate the DTMF tone for the pressed key.
+For a given key, the generated signal y(t) can be expressed as:
+
+y(t)= sin(2pi f low t) + sin (2pi f high t)
+Flow Chart:
+Program:
+clc;
+clear all;
+close all;
+t = -2:0.05:2;
+x=input('enter the input number');
+fr1=697;
+fr2=770;
+fr3=852;
+fr4=941;
+fc1=1209;
+fc2=1336;
+fc3=1477;
+fc4=1633;
+y0 = sin(2*pi*fr4*t) + sin(2*pi*fc2*t); % 0
+y1 = sin(2*pi*fr1*t) + sin(2*pi*fc1*t); % 1
+y2 = sin(2*pi*fr1*t) + sin(2*pi*fc2*t); % 2
+y3 = sin(2*pi*fr1*t) + sin(2*pi*fc3*t); % 3
+y4 = sin(2*pi*fr2*t) + sin(2*pi*fc1*t); % 4
+y5 = sin(2*pi*fr2*t) + sin(2*pi*fc2*t); % 5
+y6 = sin(2*pi*fr2*t) + sin(2*pi*fc3*t); % 6
+y7 = sin(2*pi*fr3*t) + sin(2*pi*fc1*t); % 7
+y8 = sin(2*pi*fr3*t) + sin(2*pi*fc2*t); % 8
+y9 = sin(2*pi*fr3*t) + sin(2*pi*fc3*t); % 9
+y_start = sin(2*pi*fr4*t) + sin(2*pi*fc1*t); % *
+y_canc = sin(2*pi*fr4*t) + sin(2*pi*fc3*t); % #
+if (x==1)
+plot(t,y1)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==2)
+plot(t,y2)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==3)
+plot(t,y3)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==4)
+plot(t,y4)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==5)
+plot(t,y5)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==6)
+plot(t,y6)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==7)
+plot(t,y7)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==8)
+plot(t,y8)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==9)
+plot(t,y9)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==0)
+plot(t,y0)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==11)
+plot(t,y_start)
+xlabel('time(t)')
+ylabel('amplitude')
+elseif (x==12)
+plot(t,y_canc)
+xlabel('time(t)')
+ylabel('amplitude')
+else
+disp('enter the correct input')
+end
+Result:
+Observation:
+1. MATLAB Code Execution:
+MATLAB was used to generate the DTMF signal for each key by producing two
+sinusoidal tones corresponding to each key's low and high frequencies and then summing
+them to form the DTMF tone.
+2. Frequency Verification:
+By plotting the resulting DTMF signals, distinct frequency components were observed,
+confirming the presence of both the low and high frequencies associated with each key
+press.
+3. Audible Signal Generation:
+When played as an audio file, each DTMF tone sounded like a distinct dual-tone signal,
+characteristic of traditional telephone key presses.
+Conclusion:
+The DTMF signals for a telephone keypad were successfully generated in MATLAB by
+combining the appropriate low and high frequency tones for each key. This experiment
+demonstrates how DTMF signaling encodes numbers and symbols as combinations of specific
+frequencies, allowing for reliable and fast transmission of numeric data over communication
+systems. The MATLAB simulation of DTMF signals provides a practical understanding of
+telecommunication signaling methods. This approach is foundational in various
+telecommunication applications, such as telephone dialing and remote system control
+
+
+
+
+===============
+9src
+==============
+Aim:
+Write program to implement sampling rate conversion :
+Decimation and Interpolation
+Requirements:
+MATLAB
+Theory:
+Sampling Rate Conversion is the process of changing the sampling rate of a discrete signal to
+either increase or decrease its resolution. Two primary methods of sampling rate conversion are
+Decimation and Interpolation.
+1. Decimation:
+ Decimation reduces the sampling rate of a signal by a factor 𝑀. This involves
+downsampling the signal by keeping every 𝑀-th sample and discarding the rest. To
+avoid aliasing when reducing the sampling rate, the signal is first passed through a
+low-pass filter to remove high-frequency components beyond the new Nyquist
+frequency.
+ Mathematically, if the original signal is x[n], the decimated signal y[n] is:
+y[n]=x [n . M]
+ The low-pass filter before downsampling has a cutoff frequency of 𝜋/𝑀 in radians
+to prevent aliasing.
+2. Interpolation:
+ Interpolation increases the sampling rate by a factor 𝐿 by inserting 𝐿−1 zeros
+between each sample of the original signal. The resulting upsampled signal is then
+passed through a low-pass filter to smooth out the inserted zero values and
+reconstruct a signal with a higher sample rate.
+ For an original signal x[n], the interpolated signal y[n] involves zero-insertion
+followed by low-pass filtering to obtain:
+y[n]= LPF (x [n.L])
+ The low-pass filter used for interpolation has a cutoff frequency of 𝜋/𝐿
+Program:
+% Original Signal
+Fs_original = 1000; % Original sampling frequency (Hz)
+t = 0:1/Fs_original:1; % Time vector from 0 to 1 second
+f_signal = 5; % Frequency of the original signal (Hz)
+original_signal = sin(2 * pi * f_signal * t); % Original signal (sine wave)
+% Sampling Signal
+Fs_sampled = 200; % New sampling frequency (Hz)
+t_sampled = 0:1/Fs_sampled:1; % Sampled time vector
+sampled_signal = sin(2 * pi * f_signal * t_sampled); % Sampled signal
+% Decimation
+decimation_factor = 4; % Decimation factor
+decimated_signal = sampled_signal(1:decimation_factor:end); % Decimated signal
+t_decimated = t_sampled(1:decimation_factor:end); % Time vector for decimated signal
+% Interpolation
+interp_factor = 4; % Interpolation factor
+interp_signal = zeros(1, length(decimated_signal) * interp_factor); % Initialize interpolated
+signal
+interp_signal(1:interp_factor:end) = decimated_signal; % Insert decimated signal values
+interp_signal = resample(interp_signal, interp_factor, 1); % Resample to interpolate
+t_interp = (0:length(interp_signal)-1) / (Fs_original); % Time vector for interpolated signal
+% Plotting
+figure;
+subplot(4, 1, 1);
+plot(t, original_signal);
+title('Original Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+subplot(4, 1, 2);
+stem(t_sampled, sampled_signal, 'r', 'filled');
+title('Sampled Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+subplot(4, 1, 3);
+stem(t_decimated, decimated_signal, 'g', 'filled');
+title('Decimated Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+subplot(4, 1, 4);
+plot(t_interp, interp_signal, 'm');
+title('Interpolated Signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+% Enhance the plot
+linkaxes(findobj(gcf, 'Type', 'axes'), 'x');
+grid on;
+Result:
+Observation:
+1. MATLAB Code Execution:
+Decimation and Interpolation were implemented in MATLAB for an example signal by
+using downsampling and upsampling operations. A low-pass filter was applied in each
+process to prevent aliasing during decimation and to smooth out the signal during
+interpolation.
+2. Results of Decimation:
+The decimated signal showed a reduced number of samples, effectively lowering the
+sampling rate while retaining the overall shape of the original signal. Without proper
+filtering, aliasing artifacts were observed, emphasizing the importance of a low-pass filter
+before decimation.
+3. Results of Interpolation:
+Interpolating the signal increased the number of samples, resulting in a higher sampling
+rate. The low-pass filter effectively removed high-frequency components introduced by
+zero-insertion, producing a smoother signal that resembled a higher-resolution version of
+the original.
+Conclusion:
+The implementation of decimation and interpolation successfully demonstrated how sampling rate
+conversion modifies the sampling rate of a signal. Decimation reduced the sampling rate,
+requiring careful filtering to prevent aliasing. Interpolation increased the sampling rate by
+introducing additional samples and required filtering to smooth the result. Both methods proved
+essential for adjusting signals in digital processing applications, where compatibility with various
+systems and standards is necessary. This experiment illustrates the practical considerations of
+sampling rate conversion and its significance in digital signal processing.
+
+
+
+
+
+
+=========================
+10lphp fir
+================
+Aim:  To implement Lowpass and Highpass FIR Filters
+Requirements: Matlab Software was used to perform the practical
+
+Theory:
+In digital signal processing, Finite Impulse Response (FIR) filters are widely used for filtering applications due to their inherent stability and linear phase response. FIR filters achieve desired frequency characteristics through convolution with a finite number of coefficients. Here, we design Lowpass and Highpass FIR filters using the window method with a Blackman window, which minimizes the side lobes in the filter's frequency response, thus reducing leakage.
+1.	Lowpass FIR Filter (LPF): Allows signals below a specified cutoff frequency to pass through while attenuating higher frequencies.
+2.	Highpass FIR Filter (HPF): Allows signals above a specified cutoff frequency to pass through while attenuating lower frequencies.
+Window Method: The design process involves defining filter coefficients using an ideal response and shaping the frequency response using a window function. Here, we use the Blackman window for its good attenuation of side lobes in the frequency domain, providing a smooth transition in the filter response.
+Formulae:
+1.	Normalized Cutoff Frequency: fn= 2×fp / fs
+2.	Highpass Filter Coefficients: b=fir1(n,fn,′high′,window)
+3.	Lowpass Filter Coefficients: b=fir1(n,fn,window)
+Program:
+For High Pass Filter:
+clc;
+clear all;
+close all;
+n=20;
+fp=300;
+fq=200;
+fs=1000;
+fn=2*fp/fs;
+window=blackman(n+1);
+b=fir1(n,fn,'high',window);
+[H W]=freqz(b,1,128);
+subplot(2,1,1);
+plot(W/pi,abs(H));
+title('mag res of hpf');
+ylabel('gain in db-------->');
+xlabel('normalized frequency------>');
+subplot(2,1,2);
+plot(W/pi,angle(H));
+title('phase res of hpf');
+ylabel('angle-------->');
+xlabel('normalized frequency------>');
+For Low Pass Filter:
+clc;
+clear all;
+close all;
+n=20;
+fp=200;
+fq=300;
+fs=1000;
+fn=2*fp/fs;
+window=blackman(n+1);
+b=fir1(n,fn,window);
+[H W]=freqz(b,1,128);
+subplot(2,1,1);
+plot(W/pi,abs(H));
+title('magnitude respones of lpf');
+ylabel('gain in db');
+xlabel('normalized frequency');
+subplot(2,1,2);
+plot(W/pi,angle(H));
+title('Phase response of lpf');
+ylabel('angle');
+xlabel('normalized frequency');
+
+Result:
+1.	High Pass Filter:
+ 
+2.	Low Pass Filter:
+ 
+
+
+
+Observations:
+1.	Lowpass Filter (LPF):
+o	The magnitude response shows that frequencies below the cutoff (200 Hz) are retained, while frequencies above are attenuated.
+o	The phase response is generally linear, indicating minimal phase distortion for signals within the passband.
+2.	Highpass Filter (HPF):
+o	The magnitude response shows attenuation for frequencies below the cutoff (300 Hz) and retention of frequencies above.
+o	The phase response is also approximately linear in the passband.
+3.	Blackman Window Effect: The Blackman window minimizes side lobes in the filter response, yielding a smoother transition band and reducing spectral leakage.
+
+Conclusion:
+1.	FIR Filter Design: MATLAB successfully implements both lowpass and highpass FIR filters using the window method. These filters provide a stable, linear-phase response, suitable for applications where phase linearity is essential.
+2.	Frequency and Phase Characteristics: The lowpass and highpass filters designed here accurately meet their specifications, with a clear passband and attenuation in the stopband, demonstrating the effectiveness of FIR filters.
+3.	Utility of Blackman Window: The Blackman window minimizes leakage and improves filter performance by reducing side lobes in the transition region.
+4.	Applications: Lowpass and highpass FIR filters are widely used in signal processing applications such as noise reduction, audio processing, and communications, where specific frequency ranges must be either removed or preserved.
+
+
+
+
+
+==================
+11lphp iir
+======================
+Aim:  To implement Lowpass and Highpass IIR Filters
+Requirements: Matlab Software was used to perform the practical
+
+Theory:
+In digital signal processing, Infinite Impulse Response (IIR) filters are commonly used due to their efficient filtering properties and compact implementation. IIR filters can achieve a desired response with fewer coefficients than FIR filters, though they lack the inherent stability and linear phase response of FIR filters.
+Types of IIR Filters:
+1.	Lowpass IIR Filter (LPF): Passes frequencies below a specified cutoff frequency, attenuating frequencies above it.
+2.	Highpass IIR Filter (HPF): Passes frequencies above a specified cutoff frequency, attenuating frequencies below it.
+Filter Design Method: Here, we use the Butterworth filter, a popular IIR filter known for its smooth frequency response without ripples in both the passband and stopband. The filter order and cutoff frequency are calculated using the Butterworth Filter Order Selection (buttord function), and the filter coefficients are generated using the Butterworth Filter Design (butter function).
+Formulae:
+1.	Normalized Cutoff Frequency: w1=2 × fp / fs ; w2= 2 × fs / fs
+2.	Filter Order and Cutoff Frequency (Butterworth Filter): 
+[n,wn]=buttord(w1,w2,rp,rs)
+3.	Lowpass and Highpass Filter Coefficients:
+ [b,a]=butter(n,wn,’low’) ; [b,a]=butter(n,wn,’high’)
+Program:
+For High Pass Filter:
+clc;
+clear all;
+close all;
+disp('enter the IIR filter design specifications');
+rp=input('enter the passband ripple');
+rs=input('enter the stopband ripple');
+wp=input('enter the passband freq');
+ws=input('enter the stopband freq');
+fs=input('enter the sampling freq');
+w1=2*wp/fs;w2=2*ws/fs;
+[n,wn]=buttord(w1,w2,rp,rs,'s');
+disp('Frequency response of IIR HPF is:');
+[b,a]=butter(n,wn,'high','s');
+w=0:.01:pi;
+[h,om]=freqs(b,a,w);
+m=20*log10(abs(h));
+an=angle(h);
+figure,subplot(2,1,1);plot(om/pi,m);
+title('magnitude response of IIR filter is:');
+xlabel('(a) Normalized freq. -->');
+ylabel('Gain in dB-->');
+subplot(2,1,2);plot(om/pi,an);
+title('phase response of IIR filter is:');
+xlabel('(b) Normalized freq. -->');
+ylabel('Phase in radians-->');
+
+Input: 
+%enter the IIR filter design specifications
+%enter the passband ripple : 15
+%enter the stopband ripple : 60
+%enter the passband freq : 1500
+%enter the stopband freq : 3000
+%enter the sampling freq : 7000
+
+
+
+For Low Pass Filter:
+clc;
+clear all;
+close all;
+disp('enter the IIR filter design specifications');
+rp=input('enter the passband ripple:');
+rs=input('enter the stopband ripple:');
+wp=input('enter the passband freq:');
+ws=input('enter the stopband freq:');
+fs=input('enter the sampling freq:');
+w1=2*wp/fs;w2=2*ws/fs;
+[n,wn]=buttord(w1,w2,rp,rs,'s');
+disp('Frequency response of IIR LPF is:');
+[b,a]=butter(n,wn,'low','s');
+w=0:.01:pi;
+[h,om]=freqs(b,a,w);
+m=20*log10(abs(h));
+an=angle(h);
+figure,subplot(2,1,1);plot(om/pi,m);
+title('magnitude response of IIR filter is:');
+xlabel('(a) Normalized freq. -->');
+ylabel('Gain in dB-->');
+subplot(2,1,2);plot(om/pi,an);
+title('phase response of IIR filter is:');
+xlabel('(b) Normalized freq. -->');
+ylabel('Phase in radians-->');
+
+Input:
+%enter the IIR filter design specifications
+%enter the passband ripple:15
+%enter the stopband ripple:60
+%enter the passband freq:1500
+%enter the stopband freq:3000
+%enter the sampling freq:7000
+
+Result:
+1.	High Pass Filter:
+ 
+2.	Low Pass Filter:
+ 
+
+Observations:
+1.	Highpass Filter (HPF):
+•	The magnitude response displays a clear cutoff frequency, with frequencies below this cutoff attenuated as expected for a highpass filter.
+•	The phase response is linear in the passband, ensuring minimal phase distortion for frequencies above the cutoff.
+
+2.	Lowpass Filter (LPF):
+•	The magnitude response indicates that frequencies below the specified cutoff are retained, while higher frequencies are attenuated.
+•	The phase response is also linear in the passband, reducing phase distortion for frequencies within this range.
+3.	Butterworth Filter Characteristics:
+•	The Butterworth filter design ensures a smooth response without ripples in both the passband and stopband, ideal for applications requiring a gradual roll-off.
+
+Conclusion:
+1.	IIR Filter Design: MATLAB effectively implements both highpass and lowpass IIR filters using the Butterworth design method. These filters demonstrate accurate frequency responses that meet the specified design criteria.
+2.	Filter Response: The lowpass and highpass filters produced have smooth magnitude and phase responses, particularly suited for applications where frequency selectivity and minimal ripple are important.
+3.	Butterworth Filters: The choice of Butterworth filters in this experiment provides a stable and monotonic response, ideal for reducing the impact of noise and interference.
+4.	Applications: Highpass and lowpass IIR filters are used widely in fields like audio processing, communications, and control systems to selectively retain or remove desired frequency components.
+=====================
+
+
+
